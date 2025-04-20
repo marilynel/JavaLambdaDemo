@@ -1,0 +1,25 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Java Lambda Demo with AWS SAM
+Resources:
+  JavaLambdaFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: java-lambda-demo
+      CodeUri: s3://mel-java-lambda-demo-bucket/5a9f423ee00552ccb4688ee1069f1df1
+      Handler: com.example.lambda.Handler::handleRequest
+      Runtime: java11
+      MemorySize: 512
+      Timeout: 15
+      Environment:
+        Variables:
+          LOG_LEVEL: INFO
+      Policies:
+      - AWSLambdaBasicExecutionRole
+Outputs:
+  JavaLambdaFunction:
+    Description: Java Lambda Function ARN
+    Value:
+      Fn::GetAtt:
+      - JavaLambdaFunction
+      - Arn
